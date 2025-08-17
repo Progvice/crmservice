@@ -2,6 +2,18 @@
 
 Hei! Tässä minun näytetyöni henkilötietojärjestelmästä. 
 
+## Osoitteet
+
+Tässä on koko projektin olennaisimmat osoitteet
+
+yksikkötoimenpiteet = read/update/delete
+
+- /personel/create - Luodaan uusi henkilötieto järjestelmään
+- /personel/read - Lataa kaikki henkilötiedot 
+- /personel/q - POST rajapinta mihin lähetetään JSON muotoista dataa kentistä joiden perusteella henkilötietoa halutaan hakea.
+- /personel/[yksikkötoimenpiteet]/[personel_id] - Pystyt toteuttamaan yksittäiselle entiteetille toimenpiteitä
+- /swagger - Voit tarkastella OpenAPI dokumentaatiota missä kuvaillaan rajapinnan toimintaa tarkemmin
+
 ## Asennusohjeet
 
 ### Docker asennus
