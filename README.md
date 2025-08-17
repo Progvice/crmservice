@@ -45,8 +45,12 @@ Rajapinnassa ei ole lisättynä minkäänlaista authentikaatiota, mutta oikeassa
 
 ## Näkymäpuoli
 
-Olen samalla luonut käytettäväksi yksinkertaisen näkymäpuolen joka visualisoi datanhallintaa ja käyttää tätä rajapintaa jonka olen luonut. 
+Olen samalla luonut käytettäväksi yksinkertaisen näkymäpuolen joka visualisoi datanhallintaa ja käyttää tätä rajapintaa jonka olen luonut. Näkymäpuoli ei ole kuitenkaan täysin valmis, koska priorisoin nimenomaan rajapinnan tekemiseen ajan. 
 
 ## Miksi päätin tehdä omalla ohjelmistokehyksellä?
 
 Halusin haastaa itseäni ja kehittää samalla työkaluja tämän ohjelmistokehyksen ympärille. Toteutuksen olisi voinut tehdä nopeammin perinteisellä täysin puhtaalla PHP toteutuksella tai Laravelilla. Olen siitä huolimatta ylpeä siitä mitä olen saanut aikaiseksi. 
+
+## Lopputerveiset
+
+Minulla oli hauskaa tätä projektia tehdessä! Toivottavasti harkitsette minua jatkoon. 
