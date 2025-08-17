@@ -231,11 +231,7 @@ class swaggerController extends Controller
                                     "type": "object",
                                     "properties": {
                                         "status": { "type": "boolean" },
-                                        "msg": { "type": "string" },
-                                        "data": {
-                                        "type": "array",
-                                        "items": { "\$ref": "#/components/schemas/Personnel" }
-                                        }
+                                        "msg": { "type": "string" }
                                     }
                                     }
                                 }
