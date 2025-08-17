@@ -40,9 +40,18 @@ class personelController extends Controller
             return;
         }
 
+        $personnel = $models->Select([
+            'values' => [
+                'normal' => [
+                    'id' => $this->params[0]
+                ]
+            ]
+        ]);
+
         $response->Send('json', [
             'status' => true,
-            'message' => 'success'
+            'message' => 'success',
+            'data' => $personnel
         ]);
     }
 }

@@ -76,6 +76,10 @@ class personelController extends Controller
             ]
         ]);
 
-        $response->Send('json', $searchResults);
+        $response->Send('json', [
+            'status' => true,
+            'msg' => 'success',
+            'data' => $searchResults
+        ]);
     }
 }
