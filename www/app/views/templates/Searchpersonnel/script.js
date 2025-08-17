@@ -1,24 +1,20 @@
-var debounceTime = 1000;
+let debounceTimer;
 
-$(".searchbar").on('change', function(e) {
-
-    const earlierDebounceTime = window.debouncetimer;
-
-    if (earlierDebounceTime >= Date.now() && (earlierDebounceTime - Date.now()) < 1000) {
-        window.debounceTime = Date.now() + 1000;
-        return;
-    }
-
+$(".searchbar").on('input', function(e) {   // use input instead of change for live typing
     const val = $(this).val();
 
-    $.ajax({
-        url: '/personel/read/q',
-        method: 'POST',
-        data: JSON.stringify({
-            email: val
-        }),
-        contentType: 'application/json',
-    }).done((res) => {
-        console.log(res);
-    });
+    clearTimeout(debounceTimer); // reset previous timer
+
+    debounceTimer = setTimeout(() => {
+        $.ajax({
+            url: '/personel/read/q',
+            method: 'POST',
+            data: JSON.stringify({
+                email: val
+            }),
+            contentType: 'application/json',
+        }).done((res) => {
+            console.log(res);
+        });
+    }, 500); // 500ms debounce delay
 });
