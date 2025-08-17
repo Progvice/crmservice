@@ -64,7 +64,7 @@ class personelController extends Controller
         $response->Send('json', [
             'status' => true,
             'msg' => 'insertsuccess',
-            'data' => $personel
+            'data' => $personel ?? null
         ]);
     }
 }
