@@ -1,4 +1,4 @@
-# CRM Service Oy näytetyö
+# CRM-Service Oy näytetyö
 
 Hei! Tässä minun näytetyöni henkilötietojärjestelmästä. 
 
