@@ -1,0 +1,20 @@
+{
+  "page": {
+    "httpMethod": "GET",
+    "url": "/personel/read",
+    "controller": "/personel/read/index.php",
+    "actions": "personel",
+    "name": "personel",
+    "title": "personel",
+    "params": {
+      "q": {
+        "allowNoParams": true,
+        "httpMethod": "POST",
+        "method": "searchPersonel"
+      },
+      "read": {
+        "method": "personelById"
+      }
+    }
+  }
+}

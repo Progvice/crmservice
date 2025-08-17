@@ -1,0 +1,59 @@
+{
+  "js": [
+    {
+      "global": [
+        {
+          "normal": [
+            "https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js",
+            "https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js",
+            "https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js",
+            "https://www.google.com/recaptcha/api.js?render=6LfngqseAAAAABp3f1htpLMhEsBlpxNqmcKe-xOq",
+            "scripts.js"
+          ]
+        },
+
+        {
+          "async": []
+        },
+
+        {
+          "defer": []
+        },
+        {
+          "asfer": []
+        }
+      ],
+      "custom": [
+        {
+          "/games": [
+            {
+              "normal": []
+            }
+          ],
+          "/login": [
+            {
+              "normal": [
+                "https://www.google.com/recaptcha/api.js?render=6LfngqseAAAAABp3f1htpLMhEsBlpxNqmcKe-xOq"
+              ]
+            }
+          ],
+          "/register": [
+            {
+              "asfer": []
+            }
+          ],
+          "/restorepassword": [
+            {
+              "asfer": []
+            }
+          ],
+          "/tilaakyyti": [
+            {
+              "asfer": ["https://www.google.com/recaptcha/api.js"]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
