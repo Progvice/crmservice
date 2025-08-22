@@ -5,5 +5,10 @@ return [
     "controller" => "/user/delete/index.php",
     "actions" => "user",
     "name" => "user",
-    "title" => "user"
+    "title" => "user",
+    "params" => [
+        "delete" => [
+            "method" => "user"
+        ]
+    ]
 ];

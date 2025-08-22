@@ -7,10 +7,11 @@ class Actionmenu extends Template
     public function load($values)
     {
         $addPerson = LANG['add'] . ' ' . LANG['person'];
-        $removePerson = LANG['remove'] . ' ' . LANG['person'];
         $title = isset($values['title']) ? $values['title'] : '';
         $searchbar = parent::load(['name' => 'Searchpersonnel']);
         $this->collectStyle(__DIR__);
+        $this->collectScript(__DIR__);
+
         return <<<EOT
             <div class="actionmenu">
                 <h2>{$title}</h2>

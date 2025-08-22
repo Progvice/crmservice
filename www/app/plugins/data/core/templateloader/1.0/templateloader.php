@@ -23,31 +23,8 @@ class Template
     
     EOS;
 
-    public function loadData($uri)
-    {
-        $template_link = DATA_PATH . $uri . '/index.json';
-        $template = json_decode(file_get_contents($template_link));
-        $datalist = [];
-        foreach ($template as $block_name => $data) {
-            if (!file_exists(TEMPLATE_PATH . $data->template . '/index.php')) {
-                continue;
-            }
-            $name = $data->template;
-
-            if (!class_exists($name)) {
-                require TEMPLATE_PATH . $data->template . '/index.php';
-            }
-            foreach ($data->data as $block) {
-                $class = new $name;
-                if (!array_key_exists($block_name, $datalist)) {
-                    $datalist[$block_name] = $class->load($block);
-                    continue;
-                }
-                $datalist[$block_name] .= $class->load($block);
-            }
-        }
-        $this->blocks = $datalist;
-    }
+    public static $collectedScripts = [];
+    public static $collectedStyles = [];
 
     /*
      *  @method Load
@@ -69,7 +46,7 @@ class Template
 
         $name = $template['name'];
 
-        if (!file_exists(VIEW_PATH . '/../templates/' . $name . '/' . 'index.php')) {
+        if (!$this->templateExists($name)) {
             echo 'Template does not exist!';
             return;
         }
@@ -95,15 +72,19 @@ class Template
 
     public function collectStyle($dir)
     {
+        if (in_array($dir, self::$collectedStyles)) return;
         if (!file_exists($dir . '/style.css')) return;
         $styles = file_get_contents($dir . '/style.css');
         self::$styles = self::$styles . "\n\n" . $styles;
+        array_push(self::$collectedStyles, $dir);
     }
 
     public function collectScript($dir)
     {
+        if (in_array($dir, self::$collectedScripts)) return;
         if (!file_exists($dir . '/script.js')) return;
         $scripts = file_get_contents($dir . '/script.js');
         self::$scripts = self::$scripts . "\n\n" . $scripts;
+        array_push(self::$collectedScripts, $dir);
     }
 }

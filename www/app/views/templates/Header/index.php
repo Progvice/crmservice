@@ -7,6 +7,8 @@ class Header extends Template
     public function load($values)
     {
         $this->collectStyle(__DIR__);
+        $this->collectScript(__DIR__);
+
         $headerMenu = parent::load(['name' => 'HeaderMenu']);
         return <<<EOS
         <header>

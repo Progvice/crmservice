@@ -42,19 +42,25 @@ if ($config['environment'] === 'development' || $config['environment'] === 'prod
     echo 'Invalid configuration mode set. Set proper configuration mode at configuration file.';
     die;
 }
-$lang = json_decode(file_get_contents(APP_PATH . '/lang.json'), true);
 
-define('LANG', isset($_SESSION['login']['lang']) ? $lang[$_SESSION['login']['lang']] : $lang['fi-fi']);
+$currentLang = $_SESSION['login']['lang'] ?? 'fi';
+
+$supportedLanguages = ['fi', 'en'];
+
+$loadedLang = null;
+
+if (in_array($currentLang, $supportedLanguages)) {
+    $loadedLang = require APP_PATH . "/lang/" . $currentLang . '.php';
+} else {
+    $loadedLang = require APP_PATH . '/lang/fi.php';
+}
+
+
+define('LANG', $loadedLang);
 
 if (isset(CONFIG['timezone'])) {
     date_default_timezone_set(CONFIG['timezone']);
 }
-
-$menu = json_decode(file_get_contents(APP_PATH . '/menu.json'), true);
-
-define('MENU', $menu);
-
-
 
 $parse_url = parse_url($_SERVER['REQUEST_URI']);
 if ($parse_url === false) {
@@ -134,5 +140,6 @@ if ($url === $right_uri || $url_second === $right_uri) {
 if (isset($page_found)) {
     if (!$page_found) {
         header('Location: /404');
+        exit;
     }
 }
