@@ -12,7 +12,7 @@ class TemplateNotFound extends Template
         $templateName = $values;
 
         return <<<EOT
-            <h1>Template {$templateName} not found</h1>
+            <p>Template "{$templateName}" not found</p>
         EOT;
     }
 }

@@ -13,8 +13,6 @@ class templateController extends Controller
         $response = new Response;
         $template = new Template;
 
-        $data = json_decode(file_get_contents('php://input'), true);
-
         $templateName = $this->params[0];
 
         if (!$template->templateExists($templateName)) {
@@ -22,5 +20,16 @@ class templateController extends Controller
             $response->Html($templateNotFound);
             return;
         }
+
+        $data = json_decode(file_get_contents('php://input'), true);
+
+        if ($data === null || $data === false) {
+            $errorTemplate = $template->load(['name' => 'Error']);
+            $response->Html($errorTemplate);
+            return;
+        }
+
+        $loadedTemplate = $template->load(['name' => $templateName, 'data' => $data]);
+        $response->Html($loadedTemplate);
     }
 }
