@@ -21,10 +21,12 @@ class templateController extends Controller
             return;
         }
 
-        $data = json_decode(file_get_contents('php://input'), true);
+        $rawInput = file_get_contents('php://input');
 
-        if ($data === null || $data === false) {
-            $errorTemplate = $template->load(['name' => 'Error']);
+        $data = json_decode($rawInput, true);
+
+        if (($data === null || $data === false) && $rawInput !== "") {
+            $errorTemplate = $template->load(['name' => 'ErrorTemplate', 'data' => $templateName]);
             $response->Html($errorTemplate);
             return;
         }

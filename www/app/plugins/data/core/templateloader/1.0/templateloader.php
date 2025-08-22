@@ -70,7 +70,7 @@ class Template
         $name = $template['name'];
 
         if (!file_exists(VIEW_PATH . '/../templates/' . $name . '/' . 'index.php')) {
-            echo 'Template does not exist.!';
+            echo 'Template does not exist!';
             return;
         }
 
