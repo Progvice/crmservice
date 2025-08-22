@@ -44,17 +44,23 @@ class Template
     public function load($template)
     {
 
+        if (!isset($template['name'])) {
+            echo 'Can\'t load template without template name set.';
+            return;
+        }
+
         $name = $template['name'];
+        $className = 'Core\App\Template\\' . $name;
 
         if (!$this->templateExists($name)) {
             echo 'Template does not exist!';
             return;
         }
 
-        if (!class_exists($name)) {
+        if (!class_exists($className)) {
             require VIEW_PATH . '/../templates/' . $name . '/' . 'index.php';
         }
-        $class = new $name;
+        $class = new $className;
         $final_template = $class->load(isset($template['data']) ? $template['data'] : []);
         return $final_template;
     }

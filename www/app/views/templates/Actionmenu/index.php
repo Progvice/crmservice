@@ -1,5 +1,7 @@
 <?php
 
+namespace Core\App\Template;
+
 use Core\App\Template;
 
 class Actionmenu extends Template
