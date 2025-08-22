@@ -62,6 +62,7 @@ class Controller
         $controller->base_uri = $this->base_uri;
         $controller->view = $this->view;
         $controller->title = $this->title;
+
         if (isset($this->params)) {
             $uri = explode('/', $this->params_uri);
             $count = count($uri);
@@ -69,21 +70,21 @@ class Controller
             for ($i = $count - 1; $i >= 0; $i--) {
                 $uri_part = $uri[$i];
 
-                if (!isset($this->params->$uri_part)) continue;
+                if (!isset($this->params[$uri_part])) continue;
 
-                $param_method = $this->params->$uri_part->method;
+                $param_method = $this->params[$uri_part]['method'];
                 $position = $i + 1;
                 $controller->params = array_slice($uri, $position);
 
-                if (isset($this->params->$uri_part->httpMethod) && $this->params->$uri_part->httpMethod !== $_SERVER['REQUEST_METHOD']) {
-                    $this->methodNotAllowed($this->params->$uri_part->httpMethod);
+                if (isset($this->params[$uri_part]['httpMethod']) && $this->params[$uri_part]['httpMethod'] !== $_SERVER['REQUEST_METHOD']) {
+                    $this->methodNotAllowed($this->params[$uri_part]['httpMethod']);
                     return;
                 }
 
-                if (count($controller->params) < 1 && !isset($this->params->$uri_part->allowNoParams)) break;
+                if (count($controller->params) < 1 && !isset($this->params[$uri_part]['allowNoParams'])) break;
 
-                if (isset($this->params->$uri_part->view)) {
-                    $controller->view = substr($this->view, 0, -9) . $this->params->$uri_part->view . '.php';
+                if (isset($this->params[$uri_part]['view'])) {
+                    $controller->view = substr($this->view, 0, -9) . $this->params[$uri_part]['view'] . '.php';
                 }
                 $controller->$param_method();
                 return;
@@ -91,9 +92,7 @@ class Controller
         }
 
         if ($this->httpMethod !== false && $this->httpMethod !== $_SERVER['REQUEST_METHOD']) {
-            http_response_code(405);
-            header('Allow: ' . $this->httpMethod);
-            echo json_encode(['error' => "Method not allowed"]);
+            $this->methodNotAllowed($this->httpMethod);
             exit;
         }
 

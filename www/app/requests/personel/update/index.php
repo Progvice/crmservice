@@ -7,5 +7,11 @@ return [
     "controller" => "/personel/update/index.php",
     "actions" => "personel",
     "name" => "personel",
-    "title" => "personel"
+    "title" => "personel",
+    "params" => [
+        "update" => [
+            "httpMethod" => "PATCH",
+            "method" => "personel"
+        ]
+    ]
 ];

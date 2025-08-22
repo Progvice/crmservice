@@ -7,5 +7,10 @@ return [
     "controller" => "/personel/delete/index.php",
     "actions" => "personel",
     "name" => "personel",
-    "title" => "personel"
+    "title" => "personel",
+    "params" => [
+        "delete" => [
+            "method" => "personel"
+        ]
+    ]
 ];

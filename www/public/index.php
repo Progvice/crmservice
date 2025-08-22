@@ -97,9 +97,10 @@ if ($parse_url['path'] === '/') {
         }
         array_pop($count_uri);
     }
-    $requests = require_once REQUEST_PATH . $right_uri . '/index.php';
+    $requests = require REQUEST_PATH . $right_uri . '/index.php';
     $view_path = $right_uri;
 }
+
 if (
     isset($requests['params']) === false
     && $right_uri !== $final_url

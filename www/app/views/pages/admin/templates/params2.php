@@ -1,7 +1,7 @@
 <div class="main section-12 row wrap">
     <div class="admin_infobox">
         <a href="javascript:history.go(-1)" class="admin_info_btn">Edellinen sivu</a>
-    <?php 
+        <?php
         //var_dump($paramsUri);
         $url = implode('/', $paramsUri);
         $params = explode('data', $url);
@@ -26,7 +26,7 @@
                 break;
             }
         }
-        
+
         if (!$hasblock) {
             echo '<h2>This block does not exist!';
             return;
@@ -42,8 +42,7 @@
                     $title = '';
                     if (isset(LANG['admin'][$string])) {
                         $title = LANG['admin'][$string];
-                    }
-                    else {
+                    } else {
                         $title = $string;
                     }
                     if (is_object($value)) {
@@ -92,58 +91,57 @@
 
         ?>
         <script>
-        $(document).ready(function(){
-            let block_name = "<?php echo $fblock_name; ?>";
-            let url = "<?php echo $urlfinal; ?>";
-            let url_data_raw = <?php echo $url_data_raw; ?>;
-            $(".savetemplate").click(function(e){
-                e.preventDefault();
-                let = arrPos = $(this).data('arrpos');
-                let siblingElements = $(this).siblings("input");
-                for(let counter = 0; counter < siblingElements.length; counter++) {
-                    let subArr;
-                    let objname = siblingElements[counter].dataset.objname;
-                    let objfield = siblingElements[counter].dataset.objfield;
-                    let objvalue = siblingElements[counter].value;
-                    
-                    if (siblingElements[counter].dataset.subarr) {
-                        let subobjfield = siblingElements[counter].dataset.subobjfield;
-                        url_data_raw[block_name]['data'][arrPos]['data'][objname][objfield][subobjfield] = objvalue;
+            $(document).ready(function() {
+                let block_name = "<?php echo $fblock_name; ?>";
+                let url = "<?php echo $urlfinal; ?>";
+                let url_data_raw = <?php echo $url_data_raw; ?>;
+                $(".savetemplate").click(function(e) {
+                    e.preventDefault();
+                    let = arrPos = $(this).data('arrpos');
+                    let siblingElements = $(this).siblings("input");
+                    for (let counter = 0; counter < siblingElements.length; counter++) {
+                        let subArr;
+                        let objname = siblingElements[counter].dataset.objname;
+                        let objfield = siblingElements[counter].dataset.objfield;
+                        let objvalue = siblingElements[counter].value;
+
+                        if (siblingElements[counter].dataset.subarr) {
+                            let subobjfield = siblingElements[counter].dataset.subobjfield;
+                            url_data_raw[block_name]['data'][arrPos]['data'][objname][objfield][subobjfield] = objvalue;
+                        } else {
+                            url_data_raw[block_name]['data'][arrPos]['data'][objname][objfield] = objvalue;
+                        }
                     }
-                    else {
-                        url_data_raw[block_name]['data'][arrPos]['data'][objname][objfield] = objvalue;
-                    }
-                }
-                
-                let data = {
-                    url: url,
-                    data: url_data_raw
-                };
-                let final_data = JSON.stringify(data);
-                $.ajax({
-                    url: "/templates/update",
-                    contentType: "application/json",
-                    type: "POST",
-                    data: final_data
-                }).done((res) => {
-                    console.log(res);
-                    switch(res.status) {
-                        case 'success':
-                            toastr.success(res.msg);
-                        break;
-                        case 'error':
-                            toastr.error(res.msg);
-                        break;
-                        case 'warning':
-                            toastr.warning(res.msg);
-                        break;
-                        default:
-                            toastr.warning("Unknown error");
-                        break;
-                    }
+
+                    let data = {
+                        url: url,
+                        data: url_data_raw
+                    };
+                    let final_data = JSON.stringify(data);
+                    $.ajax({
+                        url: "/templates/update",
+                        contentType: "application/json",
+                        type: "POST",
+                        data: final_data
+                    }).done((res) => {
+                        console.log(res);
+                        switch (res.status) {
+                            case 'success':
+                                toastr.success(res.msg);
+                                break;
+                            case 'error':
+                                toastr.error(res.msg);
+                                break;
+                            case 'warning':
+                                toastr.warning(res.msg);
+                                break;
+                            default:
+                                toastr.warning("Unknown error");
+                                break;
+                        }
+                    });
                 });
             });
-        });
         </script>
     </div>
 </div>
@@ -179,7 +177,7 @@
                 if (res.status) {
                     $(".isn_imgs").empty();
                     $(".img_selector").css('display', 'flex');
-                    res.data.foreach (img => {
+                    res.data.foreach(img => {
                         const html = `
                             <div class="is_img">
                                 <img src="${img.imgpath}"/>
@@ -218,5 +216,4 @@
             toastr.warning('Kuvaa ei asetettu');
         });
     });
-
 </script>
