@@ -17,12 +17,14 @@ class templateController extends Controller
 
         if (!$template->templateExists($templateName)) {
             $templateNotFound = $template->load(['name' => 'TemplateNotFound', 'data' => $templateName]);
+            $response->SetCode(404);
             $response->Html($templateNotFound);
             return;
         }
 
         if (!$template->checkTemplateApiAccess($templateName)) {
             $forbiddenTemplate = $template->load(['name' => 'Forbidden', 'data' => ['name' => $templateName]]);
+            $response->SetCode(403);
             $response->Html($forbiddenTemplate);
             return;
         }
@@ -37,7 +39,12 @@ class templateController extends Controller
             return;
         }
 
-        $loadedTemplate = $template->load(['name' => $templateName, 'data' => $data]);
-        $response->Html($loadedTemplate);
+        $templateHtml = '';
+
+        foreach ($data as $templatedata) {
+            $templateHtml = $templateHtml . "\n" . $template->load(['name' => $templateName, 'data' => $templatedata]);
+        }
+
+        $response->Html($templateHtml);
     }
 }

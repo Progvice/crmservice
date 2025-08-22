@@ -58,7 +58,7 @@ class PersonnelList extends Template
         }
 
         return <<<EOT
-            <div class="personnels">
+            <div class="personnels" id="personnels">
             
             <div class="personnel">
                 <div class="personnelCol"><p class="bold">Koko nimi</p></div>

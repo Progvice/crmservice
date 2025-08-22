@@ -11,7 +11,7 @@ class SampleWithData extends Template
         $this->collectStyle(__DIR__);
         $this->collectScript(__DIR__);
 
-        $name = $values['name'];
+        $name = $values['name'] ?? '[undefined]';
 
         return <<<EOT
             <p>Greetings {$name}! This is template that is Sample with data. You can insert data to your templates and
