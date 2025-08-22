@@ -21,6 +21,12 @@ class templateController extends Controller
             return;
         }
 
+        if (!$template->checkTemplateApiAccess($templateName)) {
+            $forbiddenTemplate = $template->load(['name' => 'Forbidden', 'data' => ['name' => $templateName]]);
+            $response->Html($forbiddenTemplate);
+            return;
+        }
+
         $rawInput = file_get_contents('php://input');
 
         $data = json_decode($rawInput, true);

@@ -448,6 +448,8 @@ EOT;
         $template = <<<EOT
 <?php
 
+namespace Core\App\Template;
+
 use Core\App\Template;
 
 class {$this->args[2]} extends Template {

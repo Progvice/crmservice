@@ -70,10 +70,17 @@ class Template
         return file_exists(VIEW_PATH . '/../templates/' . $templateName . '/' . 'index.php');
     }
 
-    public function getBlock($blockName)
+    public function checkTemplateApiAccess($templateClassname)
     {
-        if (isset($this->blocks[$blockName])) return $this->blocks[$blockName];
-        return $blockName . ' is not defined';
+
+        $templateFullClassname = 'Core\App\Template\\' . $templateClassname;
+
+        $allowedApiTemplates = require CONTROLLER_PATH . '/config/apitemplates.php';
+
+        if (!isset($allowedApiTemplates)) return false;
+        if (in_array($templateFullClassname, $allowedApiTemplates)) return true;
+
+        return false;
     }
 
     public function collectStyle($dir)
