@@ -42,6 +42,11 @@ class Response
             echo 'Invalid text input.';
         }
     }
+    public function Html($data)
+    {
+        header('Content-Type: text/html');
+        echo $data;
+    }
     public function notFound()
     {
         Plugin::load('view');

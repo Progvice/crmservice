@@ -1,0 +1,9 @@
+<?php
+
+return [
+    "url" => "/user/update",
+    "controller" => "/user/update/index.php",
+    "actions" => "user",
+    "name" => "user",
+    "title" => "user"
+];

@@ -83,8 +83,7 @@ if ($url_check) {
 
 // If request is just request to index then we want to define these settings
 if ($parse_url['path'] === '/') {
-    $requests = file_get_contents(REQUEST_PATH . '/index.json');
-    $requests = json_decode($requests);
+    $requests = require REQUEST_PATH . '/index.php';
     $view_path = '/index';
     $method = 'index';
     $right_uri = '/';
@@ -92,17 +91,17 @@ if ($parse_url['path'] === '/') {
     // Traverse URI from right to left and choose first match that it finds based on that
     for ($counter = 0; $counter <= count($uri); $counter++) {
         $current_uri = implode('/', $count_uri);
-        if (file_exists(REQUEST_PATH . $current_uri . '/index.json')) {
+        if (file_exists(REQUEST_PATH . $current_uri . '/index.php')) {
             $right_uri = $current_uri;
             break;
         }
         array_pop($count_uri);
     }
-    $requests = json_decode(file_get_contents(REQUEST_PATH . $right_uri . '/index.json'));
+    $requests = require_once REQUEST_PATH . $right_uri . '/index.php';
     $view_path = $right_uri;
 }
 if (
-    isset($requests->page->params) === false
+    isset($requests['params']) === false
     && $right_uri !== $final_url
     && $parse_url['path'] !== '/'
 ) {
@@ -110,24 +109,24 @@ if (
     exit;
 }
 
-$url = $requests->page->url;
-$url_second = $requests->page->url . '/';
+$url = $requests['url'];
+$url_second = $requests['url'] . '/';
 
 if ($url === $right_uri || $url_second === $right_uri) {
     $page_found = TRUE;
     require_once CONTROLLER_PATH . '/Controller.php';
     $controller = new Controller();
-    $controller->method = $requests->page->actions;
+    $controller->method = $requests['actions'];
     $controller->base_uri = $right_uri;
     $controller->params_uri = $final_url;
     $controller->uri_array = $uri;
-    $controller->controller = $requests->page->controller;
-    $controller->params = isset($requests->page->params) ? $requests->page->params : null;
+    $controller->controller = $requests['controller'];
+    $controller->params = isset($requests['params']) ? $requests['params'] : null;
     $controller->view = VIEW_PATH . $view_path . '/index.php';
-    $controller->classname = $requests->page->name . 'Controller';
-    $controller->disabled = isset($requests->page->disabled) ? $requests->page->disabled : false;
-    $controller->title = $requests->page->title;
-    $controller->httpMethod = isset($requests->page->httpMethod) ? $requests->page->httpMethod : false;
+    $controller->classname = $requests['name'] . 'Controller';
+    $controller->disabled = isset($requests['disabled']) ? $requests['disabled'] : false;
+    $controller->title = $requests['title'];
+    $controller->httpMethod = isset($requests['httpMethod']) ? $requests['httpMethod'] : false;
     $controller->cindex();
 }
 

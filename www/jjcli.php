@@ -227,17 +227,19 @@ EOT;
     private function CreateRequest($name, $path, $uri)
     {
         $requestfile = <<<EOT
-{
-    "page": {
-        "url" : "{$uri}",
-        "controller" : "{$uri}/index.php",
-        "actions" : "{$name}",
-        "name" : "{$name}",
-        "title" : "{$name}"
-    }
-}
+
+<?php 
+
+return [
+    "url" => "{$uri}",
+    "controller" => "{$uri}/index.php",
+    "actions" => "{$name}",
+    "name" => "{$name}",
+    "title" => "{$name}"
+];
+
 EOT;
-        file_put_contents($path . '/index.json', $requestfile);
+        file_put_contents($path . '/index.php', $requestfile);
     }
     private function CreateCRUD()
     {
@@ -418,7 +420,7 @@ class {$modelname} extends MainModel {
         ];
     }
 }
-?>
+
 EOT;
         $modelfile = fopen(__DIR__ . '/app/models/' . $modelname . '.php', "w");
         fwrite($modelfile, $template);
@@ -457,7 +459,7 @@ class {$this->args[2]} extends Template {
         {$eot}
     }
 }
-?>
+
 EOT;
         mkdir(__DIR__ . '/app/views/templates/' . $this->args[2]);
         $modelfile = fopen(__DIR__ . '/app/views/templates/' . $this->args[2] . '/index.php', "w");

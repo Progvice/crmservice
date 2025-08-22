@@ -82,6 +82,11 @@ class Template
         return $final_template;
     }
 
+    public function templateExists($templateName)
+    {
+        return file_exists(VIEW_PATH . '/../templates/' . $templateName . '/' . 'index.php');
+    }
+
     public function getBlock($blockName)
     {
         if (isset($this->blocks[$blockName])) return $this->blocks[$blockName];
